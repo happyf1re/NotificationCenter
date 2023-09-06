@@ -1,6 +1,0 @@
-build:
-  commands:
-    - mvn clean package
-
-start:
-  command: java -jar target/NotificationCenter.jar
