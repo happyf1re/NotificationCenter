@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Dashboard</title>
+</head>
+<body>
+<h1>Welcome to your Dashboard!</h1>
+<h2 th:text="${name}"></h2>
+
+
+<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+    <h3>Connect with Telegram</h3>
+    <p>To receive notifications in Telegram, send a message with your user ID: <strong th:text="${userId}"></strong> to our Telegram bot.</p>
+</div>
+
+<h3>Public Channels:</h3>
+<p>Channels will be displayed here...</p>
+
+<ul>
+    <li th:each="channel : ${publicChannels}">
+        <a th:href="@{'/channel/' + ${channel.id}}" th:text="${channel.name}"></a>
+        <button th:onclick="'window.location.href=\'/channel/subscribe/' + ${channel.id} + '\''">Подписаться</button>
+        <button th:onclick="'window.location.href=\'/channel/unsubscribe/' + ${channel.id} + '\''">Отписаться</button>
+    </li>
+</ul>
+
+<h3>Private Channels:</h3>
+<p>Channels will be displayed here...</p>
+
+<ul>
+    <li th:each="channel : ${privateChannels}">
+        <a th:href="@{'/channel/' + ${channel.id}}" th:text="${channel.name}"></a> (PRIVATE)
+        <button th:onclick="'window.location.href=\'/channel/subscribe/' + ${channel.id} + '\''">Подписаться</button>
+        <button th:onclick="'window.location.href=\'/channel/unsubscribe/' + ${channel.id} + '\''">Отписаться</button>
+    </li>
+</ul>
+
+<div>
+    <button onclick="location.href='/channel/create'">Создать канал</button>
+    <button onclick="location.href='/user/subscriptions'">Мои подписки</button>
+    <button onclick="location.href='/user/invitations'">Мои приглашения</button>
+</div>
+</body>
+</html>

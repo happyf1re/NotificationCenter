@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${channel.name}">Channel Name</title>
+</head>
+<body>
+<h1 th:text="${channel.name}">Channel Name</h1>
+
+<!-- Form for adding new posts -->
+<div th:if="${session.userId != null}"> <!-- Check if user is logged in -->
+  <form th:action="@{'/channel/' + ${channel.id} + '/addPost'}" method="post">
+    <textarea name="content" placeholder="Тут пишем пост..." required></textarea><br>
+    <button type="submit">Add Post</button>
+  </form>
+</div>
+
+<h2>Posts:</h2>
+<ul>
+  <li th:each="post : ${posts}">
+    <strong th:text="${post.authorName}">Author Name</strong>: <span th:text="${post.content}">Post content</span>
+  </li>
+</ul>
+
+
+<div th:if="${channel.type == T(com.muravlev.core.entities.ChannelType).PUBLIC}">
+  <form th:action="@{'/channel/' + ${channel.id} + '/invite'}" method="post">
+    <input type="text" name="inviteeId" placeholder="Enter User ID to invite" required/>
+    <input type="hidden" name="inviterId" th:value="${session.userId}"/>
+    <button type="submit">Пригласить</button>
+  </form>
+</div>
+
+<div th:if="${channel.type == T(com.muravlev.core.entities.ChannelType).PRIVATE and channel.creatorId == session.userId}">
+  <form th:action="@{'/channel/' + ${channel.id} + '/invite'}" method="post">
+    <input type="text" name="inviteeId" placeholder="Enter User ID to invite" required/>
+    <input type="hidden" name="inviterId" th:value="${session.userId}"/>
+    <button type="submit">Пригласить</button>
+  </form>
+</div>
+<div>
+  <p>Back to <a href="/user/dashboard">Dashboard</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Invitations</title>
+</head>
+<body>
+<h1>My Invitations</h1>
+
+<ul>
+    <li th:each="invitation : ${userInvitations}">
+        <span th:text="${invitation.channelName}"></span>
+        <span th:text="' - ' + ${invitation.status}"></span>
+
+        <!-- Кнопка для принятия приглашения -->
+        <form th:action="@{'/channel/invitations/' + ${invitation.id} + '/accept'}" method="get">
+            <input type="hidden" name="inviteeId" th:value="${invitation.inviteeId}"/>
+            <button type="submit">Accept</button>
+        </form>
+
+        <!-- Кнопка для отклонения приглашения -->
+        <form th:action="@{'/channel/invitations/' + ${invitation.id} + '/decline'}" method="get">
+            <input type="hidden" name="inviteeId" th:value="${invitation.inviteeId}"/>
+            <button type="submit">Decline</button>
+        </form>
+    </li>
+</ul>
+
+<div>
+    <button onclick="location.href='/user/dashboard'">Back to Dashboard</button>
+</div>
+</body>
+</html>

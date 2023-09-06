@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>My Subscriptions</title>
+</head>
+<body>
+<h1>My Subscriptions</h1>
+
+<ul>
+  <li th:each="channel : ${userSubscriptions}">
+    <a th:href="@{'/channel/' + ${channel.id}}" th:text="${channel.name}"></a>
+  </li>
+</ul>
+
+<div>
+  <button onclick="location.href='/user/dashboard'">Back to Dashboard</button>
+</div>
+</body>
+</html>
