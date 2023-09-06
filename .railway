@@ -3,4 +3,4 @@ build:
     - mvn clean package
 
 start:
-  command: java -jar target/your-app-name.jar
+  command: java -jar target/NotificationCenter.jar
