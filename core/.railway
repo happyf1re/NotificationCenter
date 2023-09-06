@@ -1,2 +1,2 @@
 buildCommand = "mvn clean package"
-startCommand = "java -jar target/your-specific-jar-file-name.jar"
+startCommand = "java -jar target/core-0.0.1-SNAPSHOT.jar"
