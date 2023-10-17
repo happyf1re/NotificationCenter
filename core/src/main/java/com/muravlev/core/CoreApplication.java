@@ -11,40 +11,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 @SpringBootApplication
-@OpenAPIDefinition(
-		info = @Info(
-				title = "Информация",
-				version = "1.0.0",
-				description = "Описание информации",
-				termsOfService = "Муравлёв",
-				contact = @Contact(
-						name = "Dmitry",
-						email = "dmur1991@gmail.com"
-				),
-				license = @License(
-						name = "MURAVLEV",
-						url = "ya.ru"
-				)
-		)
-)
+//@OpenAPIDefinition(
+//		info = @Info(
+//				title = "Информация",
+//				version = "1.0.0",
+//				description = "Описание информации",
+//				termsOfService = "Муравлёв",
+//				contact = @Contact(
+//						name = "Dmitry",
+//						email = "dmur1991@gmail.com"
+//				),
+//				license = @License(
+//						name = "MURAVLEV",
+//						url = "ya.ru"
+//				)
+//		)
+//)
 public class CoreApplication {
 
-	@Autowired
-	private UserController userController;
+//	@Autowired
+//	private UserController userController;
+//
+//	@Autowired
+//	private ChannelController channelController;
+//
+//	@Autowired
+//	private PostController postController;
 
-	@Autowired
-	private ChannelController channelController;
 
-	@Autowired
-	private PostController postController;
-
-
-//	public static void main(String[] args) {
+    //	public static void main(String[] args) {
 //		ConfigurableApplicationContext context = SpringApplication.run(CoreApplication.class, args);
 //
 //		UserController userController = context.getBean(UserController.class);
@@ -55,8 +58,18 @@ public class CoreApplication {
 //		ApplicationSimulator simulator = new ApplicationSimulator(userController, channelController, postController, executorService);
 //		simulator.simulate();
 //	}
-	public static void main(String[] args) {
-		SpringApplication.run(CoreApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CoreApplication.class, args);
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*");
+            }
+        };
+    }
 
 }

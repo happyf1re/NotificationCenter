@@ -14,6 +14,7 @@ import com.muravlev.core.repositories.InvitationRepository;
 import com.muravlev.core.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,20 +32,27 @@ public class UserService {
     private UserMapper userMapper;
     private ChannelMapper channelMapper;
     private InvitationMapper invitationMapper;
+    private PasswordEncoder passwordEncoder;
 
 
-    public UserService(UserRepository repository, InvitationRepository invitationRepository, UserMapper userMapper, ChannelMapper channelMapper, InvitationMapper invitationMapper) {
+    public UserService(UserRepository repository, InvitationRepository invitationRepository, UserMapper userMapper, ChannelMapper channelMapper, InvitationMapper invitationMapper, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.invitationRepository = invitationRepository;
         this.userMapper = userMapper;
         this.channelMapper = channelMapper;
         this.invitationMapper = invitationMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     public UserDTO createUser(UserDTO userDTO) {
         User user = userMapper.convertToEntity(userDTO);
+        System.out.println("ENCODING =======================================================================");
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        System.out.println("ENCODING =======================================================================");
         User createdUser = repository.save(user);
+        System.out.println("ENCODING =======================================================================");
+        System.out.println(user.getPassword());
         return userMapper.convertToDto(createdUser);
     }
 

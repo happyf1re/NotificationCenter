@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @Tag(name = "Юзеры")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     private UserService service;
@@ -37,10 +38,19 @@ public class UserController {
                     )
             }
     )
-    @PostMapping("/create")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-        UserDTO newUserDTO = service.createUser(userDTO);
-        return new ResponseEntity<>(newUserDTO, HttpStatus.CREATED);
+//    @PostMapping("/create")
+//   // @CrossOrigin(origins = "*")
+//    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+//        System.out.println("Create user method called");
+//        UserDTO newUserDTO = service.createUser(userDTO);
+//
+//        System.out.println("ENCODING1 =======================================================================");
+//        return new ResponseEntity<>(newUserDTO, HttpStatus.CREATED);
+//    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.OPTIONS)
+    public ResponseEntity handleOptions() {
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/allusers")
