@@ -38,15 +38,15 @@ public class UserController {
                     )
             }
     )
-//    @PostMapping("/create")
-//   // @CrossOrigin(origins = "*")
-//    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-//        System.out.println("Create user method called");
-//        UserDTO newUserDTO = service.createUser(userDTO);
-//
-//        System.out.println("ENCODING1 =======================================================================");
-//        return new ResponseEntity<>(newUserDTO, HttpStatus.CREATED);
-//    }
+    @PostMapping("/create")
+   // @CrossOrigin(origins = "*")
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+        System.out.println("Create user method called");
+        UserDTO newUserDTO = service.createUser(userDTO);
+
+        System.out.println("ENCODING1 =======================================================================");
+        return new ResponseEntity<>(newUserDTO, HttpStatus.CREATED);
+    }
 
     @RequestMapping(value = "/create", method = RequestMethod.OPTIONS)
     public ResponseEntity handleOptions() {

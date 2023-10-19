@@ -90,7 +90,7 @@ public class UserService {
 
     public boolean authenticate(String username, String password) {
         User user = repository.findByName(username);
-        return user != null && user.getPassword().equals(password);
+        return user != null && passwordEncoder.matches(password, user.getPassword());
     }
 
     public boolean existsByUsername(String username) {
